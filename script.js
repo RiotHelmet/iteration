@@ -1,25 +1,30 @@
+let canvas = document.getElementById("canvas");
+let ctx = canvas.getContext("2d");
 
+var centerX = canvas.width / 2;
+var centerY = canvas.height / 2;
+ctx.translate(centerX, centerY);
 
-let canvas = document.getElementById("canvas")
-let ctx = canvas.getContext("2d")
-
-function itterate(z) {
-    let answer = z
-    for (let i = 0; i < 100; i++) {
-        {
-            answer = math.add(math.multiply(answer, answer), z)
-            console.log(answer)
-            if(isNaN(answer.re) || isNaN(answer.im)) {
-                return true
-            }
-        }
+function iterate(z) {
+  let answer = z;
+  for (let i = 0; i < 20; i++) {
+    {
+      answer = math.add(math.pow(answer, 2), z);
+      if (isNaN(answer.re) === true || isNaN(answer.im) === true) {
+        return true;
+      }
     }
-    return false
+  }
+  return false;
 }
 
-for (let i = -2; i < 2; i++) {
-    console.log(i)
-    
+for (let i = -300; i <= 300; i++) {
+  for (let j = -300; j <= 300; j++) {
+    console.log(i / 50);
+    let iterateX = i / 100;
+    let iterateY = j / 100;
+    if (iterate(math.complex(`${iterateX}+${iterateY}i`)) === false) {
+      ctx.fillRect(i, j, 1, 1);
+    }
+  }
 }
-
-console.log(itterate(math.complex(`1 + i`)))
