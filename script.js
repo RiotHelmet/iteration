@@ -11,19 +11,21 @@ function iterate(z) {
     {
       answer = math.add(math.pow(answer, 2), z);
       if (isNaN(answer.re) === true || isNaN(answer.im) === true) {
-        return true;
+        return { bool: true, iteration: i };
       }
     }
   }
-  return false;
+  return { bool: false, itteration: 0 };
 }
 
-for (let i = -300; i <= 300; i++) {
-  for (let j = -300; j <= 300; j++) {
+for (let i = -250; i <= 150; i++) {
+  for (let j = -200; j <= 200; j++) {
     console.log(i / 50);
     let iterateX = i / 100;
     let iterateY = j / 100;
-    if (iterate(math.complex(`${iterateX}+${iterateY}i`)) === false) {
+    if (iterate(math.complex(`${iterateX}+${iterateY}i`)).bool === true) {
+      iteration = iterate(math.complex(`${iterateX}+${iterateY}i`)).iteration;
+      ctx.fillStyle = `rgb(${iteration * 30},39,0)`;
       ctx.fillRect(i, j, 1, 1);
     }
   }
